@@ -1,0 +1,21 @@
+name: 'Deploy Surge'
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+    Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install NodeJS
+        uses: actions/setup-node@v2-beta
+      - name: Build the website
+        with:
+          node-version: 12
+          name: Install Surge
+          run: npm install -g surge
+          run: surge ./bootcamp_newapp.surge.sh --token ${{secrets.SURGE_TOKEN}}
