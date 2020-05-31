@@ -1,19 +1,23 @@
-name: 'Deploy Surge'
+name: Deploy Surge
+
 on:
+  pull_request:
   push:
-    branches:
-    - master
+    branches: 
+      - master
+      - develop
 
 jobs:
-    Build:
+  test:
+    name: Running Units Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: Install NodeJS
-        uses: actions/setup-node@v2-beta
+        uses: actions/setup-node@v1
       - name: Build the website
         with:
-          node-version: 12
+          node-version: ${{ matrix.node-version }}
           name: Install Surge
           run: npm install -g surge
-          run: surge ./bootcamp_newapps.surge.sh --token ${{secrets.SURGE_TOKEN}}
+          run: surge ./bootcamp-newapps.surge.sh --token ${{secrets.SURGE_TOKEN}}
