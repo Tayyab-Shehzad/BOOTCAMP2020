@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    name: Running Units Tests
+    name: Deploying to surge
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v1
       - name: Build the website
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12
           name: Install Surge
           run: npm install -g surge
           run: surge ./bootcamp-newapps.surge.sh --token ${{secrets.SURGE_TOKEN}}
